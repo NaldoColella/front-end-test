@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="includes/css/bootstrap.min.css">
+	<link rel="stylesheet" href="includes/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
   <title>Enjoei - Checkout</title>
 </head>
 <body>
 	<header>
 		<a href="https://www.enjoei.com.br/"> 
-			<div class="Logo"> 
+			<div class="logo"> 
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 158.83 158.83">
 					<g data-name="Layer 1">
 						<path fill="#F05B78" d="M146.11,121.61a1.63,1.63,0,0,0-.74-1L117.73,103.9a1.47,1.47,0,0,0-2,.39,43.72,43.72,0,0,1-72.88,0,1.47,1.47,0,0,0-2-.47c-.86.55-27.63,16.54-27.63,16.54a1.61,1.61,0,0,0-.52,2.26,79.39,79.39,0,0,0,133.1.22,1.59,1.59,0,0,0,.22-1.24"></path>
@@ -17,5 +22,52 @@
 			</div> 
 		</a>
 	</header>
+	<section class="checkout">
+		<div class="main">
+			<div class="container">
+				<div class="checkout-photo">
+					<img src="https://res-5.cloudinary.com/enjoei/image/upload/c_fill,fl_lossy.progressive,h_398,q_70,w_375/qzancxcixtocajlrgztv.jpg" alt="#"/>
+				</div>
+				<div class="checkout-coupons">
+					<h1 class="title">cupons</h1>
+						<label for="cp1"><input type="radio" checked="checked" name="cupons" id="cp1" value="0" /><div class="checkmark"></div>não usar cupom</label>
+						<label for="cp2"><input type="radio" name="cupons" id="cp2" value="0" /><div class="checkmark"></div>black friday <span class="discount">- R$12,00</span></label>
+				</div>
+				<div class="summary">
+					<h1 class="title">resumo</h1>
+					<table class="table-custom">
+						<tbody>
+							<tr>
+								<td class="td-label"> valor original </td>
+								<td class="td-value"> R$100,00 </td>
+							</tr>
+							<tr id="cupom">
+								<td class="td-label"> cupom </td>
+								<td class="td-value"> - R$12,00 </td>
+							</tr>
+							<tr>
+								<td class="td-label"> frete </td>
+								<td class="td-value"> R$20,00 </td>
+							</tr>
+							<tr id="total">
+								<td class="td-label"> total </td>
+								<td class="td-value"> R$108,00 </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="actions">
+				<div class="container">
+					<button class="btn btn-half btn-cancel">cancelar</button>		
+					<button class="btn btn-half btn-confirm">confirmar</button>	
+				</div>
+			</div>
+			<div class="modal">
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
