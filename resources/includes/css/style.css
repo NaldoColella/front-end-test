@@ -44,9 +44,11 @@ img{
     font-weight: 300;
     color: #7d7a77;
     display: flex;
+}
+.checkout-coupons div{
     margin-bottom: 12.5px;
 }
-.checkout-coupons label:last-of-type{
+.checkout-coupons div:last-of-type{
     margin-bottom: 0px;
 }
 .checkout-coupons label input{
@@ -133,4 +135,44 @@ input[type="radio"]{
 }
 .btn-half{
     width: 48%;;
+}
+.modal-custom{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#cart{
+    height: 30px;
+    margin-bottom: 30px;
+}
+#cart svg{
+    fill: #6fcf67;
+}
+#cart.red svg{
+    fill: #d26769;
+}
+.modal-custom-body{
+    background: #fff;
+    border-radius: 5px;
+    width: 80%;
+    padding: 23px;
+}
+.modal-custom h1{
+    font-size: 18.5px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+.modal-custom p{
+    font-size: 14.5px;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 0px;
 }
