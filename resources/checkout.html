@@ -7,11 +7,13 @@
 	<link rel="stylesheet" href="includes/css/bootstrap.min.css">
 	<link rel="stylesheet" href="includes/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
-  <title>Enjoei - Checkout</title>
+	<title>Enjoei - Checkout</title>
+	
+	<script src="includes/js/vue.js"></script>
 </head>
 <body>
 	<header>
-		<a href="https://www.enjoei.com.br/"> 
+		<a href="#"> 
 			<div class="logo"> 
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 158.83 158.83">
 					<g data-name="Layer 1">
@@ -23,15 +25,19 @@
 		</a>
 	</header>
 	<section class="checkout">
-		<div class="main">
+		<div id="main">
 			<div class="container">
 				<div class="checkout-photo">
-					<img src="https://res-5.cloudinary.com/enjoei/image/upload/c_fill,fl_lossy.progressive,h_398,q_70,w_375/qzancxcixtocajlrgztv.jpg" alt="#"/>
+					<img v-bind:src="product.image" v-bind:alt="product.title"/>
 				</div>
 				<div class="checkout-coupons">
 					<h1 class="title">cupons</h1>
-						<label for="cp1"><input type="radio" checked="checked" name="cupons" id="cp1" value="0" /><div class="checkmark"></div>não usar cupom</label>
-						<label for="cp2"><input type="radio" name="cupons" id="cp2" value="0" /><div class="checkmark"></div>black friday <span class="discount">- R$12,00</span></label>
+					<div>
+						<label for="cp0"><input @change="updateCheckout" type="radio" checked="checked" name="cupons" id="cp0" value="0" v-model="selectedCoupon"/><div class="checkmark"></div>não usar cupom</label>
+					</div>
+					<div v-for="coupon in couponList">
+						<label v-bind:for="'cp' + coupon.id"><input @change="updateCheckout" type="radio" checked="checked" name="cupons" v-bind:id="'cp' + coupon.id" v-bind:value="coupon.id" v-model="selectedCoupon"/><div class="checkmark"></div>{{coupon.title}} <span v-if="coupon.discount > 0" class="discount">- {{localeString(coupon.discount)}}</span></label>
+					</div>
 				</div>
 				<div class="summary">
 					<h1 class="title">resumo</h1>
@@ -39,19 +45,19 @@
 						<tbody>
 							<tr>
 								<td class="td-label"> valor original </td>
-								<td class="td-value"> R$100,00 </td>
+								<td class="td-value"> {{localeString(product.price)}} </td>
 							</tr>
-							<tr id="cupom">
+							<tr id="cupom" v-if="selectedCoupon != 0">
 								<td class="td-label"> cupom </td>
-								<td class="td-value"> - R$12,00 </td>
+								<td class="td-value"> - {{localeString(selectedCouponValue)}} </td>
 							</tr>
 							<tr>
 								<td class="td-label"> frete </td>
-								<td class="td-value"> R$20,00 </td>
+								<td class="td-value"> {{localeString(shippingPrice)}} </td>
 							</tr>
 							<tr id="total">
 								<td class="td-label"> total </td>
-								<td class="td-value"> R$108,00 </td>
+								<td class="td-value"> {{localeString(total)}} </td>
 							</tr>
 						</tbody>
 					</table>
@@ -60,16 +66,22 @@
 			<div class="actions">
 				<div class="container">
 					<div class="actions-buttons">
-						<button class="btn btn-half btn-cancel">cancelar</button>		
-						<button class="btn btn-half btn-confirm">confirmar</button>	
+						<button class="btn btn-half btn-cancel" @click="cancelCheckout">cancelar</button>		
+						<button class="btn btn-half btn-confirm" @click="postCheckout(selectedCoupon)">confirmar</button>	
 					</div>
 				</div>
 			</div>
-			<div class="modal">
-				<div class="modal-body">
+			<div class="modal-custom" v-show="modalOpened">
+				<div class="modal-custom-body">
+						<div id="cart" :class="{ red: modal == cancel }">
+							<svg id="icon-cart" viewBox="0 0 24 24" width="100%" height="100%"><path d="M21,14.64l3-10A.5.5,0,0,0,23.5,4H4.63L4.26,2.54A2,2,0,0,0,2.31,1H.5a.5.5,0,0,0,0,1H2.31a1,1,0,0,1,1,.78L6.74,16.46A2,2,0,0,0,8.69,18H20.5a.5.5,0,0,0,0-1H8.69a1,1,0,0,1-1-.78L7.4,15H20.5A.5.5,0,0,0,21,14.64ZM7.15,14,4.88,5H22.83l-2.7,9Z"></path><path d="M9 19a2 2 0 1 0 2 2A2 2 0 0 0 9 19m0 3a1 1 0 1 1 1 -1A1 1 0 0 1 9 22"></path><path d="M19 19a2 2 0 1 0 2 2A2 2 0 0 0 19 19m0 3a1 1 0 1 1 1 -1A1 1 0 0 1 19 22"></path></svg>
+						</div>
+						<h1>{{modal.title}}</h1>
+						<p>{{modal.text}}</p>
 				</div>
 			</div>
 		</div>
 	</section>
+	<script src="includes/js/main.js"></script>
 </body>
 </html>
